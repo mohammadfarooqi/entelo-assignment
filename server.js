@@ -33,18 +33,22 @@ server.route({
   method: 'POST',
   path: '/sendEmail',
   handler: async (req, res) => {
-    console.log(req.payload);
+    console.log('req.payload = ', req.payload);
 
     // Body details for email 
     const to = req.payload.to;
     const subject = req.payload.subject;
     const body = req.payload.body;
 
+    const msgInfo = '&from=mohammad.farooqi@gmail.com&subject=' + encodeURI(subject) + '&to=' + encodeURI(to) + '&bodyHtml=' + encodeURI(body);
+
+    console.log('msgInfo = ', msgInfo);
 
     // http get call to elastic email api
-    const { resp, payload } = await Wreck.get('http://api.elasticemail.com/v2/email/send?apikey=' + process.env.ELASTIC_EMAIL_API_KEY + '&from=mohammad.farooqi@gmail.com&subject=' + encodeURI(subject) + '&to=' + encodeURI(to) + '&bodyHtml=' + encodeURI(body));
+    const { resp, payload } = await Wreck.get('http://api.elasticemail.com/v2/email/send?apikey=' + 
+                                                process.env.ELASTIC_EMAIL_API_KEY + msgInfo);
 
-    console.log(payload.toString());
+    console.log('payload.toString = ', payload.toString());
 
     // console.log(JSON.stringify({
     //   sent: 'to = ' + to + ' subject = ' + subject + ' body = ' + body,
