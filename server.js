@@ -46,6 +46,9 @@ server.route({
 
     return res({
       pay: req.payload,
+      to: req.payload.to,
+      subject: req.payload.subject,
+      body: req.payload.body,
       msgInfo
     })
 
