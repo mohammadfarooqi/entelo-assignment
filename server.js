@@ -1,13 +1,18 @@
+
+// Imports 
 const Hapi = require('hapi');
 const Good = require('good');
 
+// Create instance of Server
 const server = new Hapi.Server({ debug: { request: ['error'] } });
 
+// Server connection settings
 server.connection({
   host: 'localhost',
   port: 3000
 });
 
+// Routes: 
 server.route({
   method: 'GET',
   path: '/',
@@ -24,6 +29,7 @@ server.route({
   }
 });
 
+// Register Hapi Good plugin
 server.register(
   {
     register: Good,
@@ -53,6 +59,7 @@ server.register(
       throw err;
     }
 
+    // Start Server
     server.start(err => {
       if (err) {
         throw err;
