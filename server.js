@@ -33,10 +33,13 @@ server.route({
   method: 'POST',
   path: '/sendEmail',
   handler: async (req, res) => {
+    console.log(req.payload);
+
     // Body details for email 
     const to = req.payload.to;
     const subject = req.payload.subject;
     const body = req.payload.body;
+
 
     // http get call to elastic email api
     const { resp, payload } = await Wreck.get('http://api.elasticemail.com/v2/email/send?apikey=' + process.env.ELASTIC_EMAIL_API_KEY + '&from=mohammad.farooqi@gmail.com&subject=' + encodeURI(subject) + '&to=' + encodeURI(to) + '&bodyHtml=' + encodeURI(body));
