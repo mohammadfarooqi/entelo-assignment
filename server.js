@@ -44,9 +44,13 @@ server.route({
 
     console.log('msgInfo = ', msgInfo);
 
+    return res({
+      pay: req.payload,
+      msgInfo
+    })
+
     // http get call to elastic email api
-    const { resp, payload } = await Wreck.get('http://api.elasticemail.com/v2/email/send?apikey=' + 
-                                                process.env.ELASTIC_EMAIL_API_KEY + msgInfo);
+    // const { resp, payload } = await Wreck.get('http://api.elasticemail.com/v2/email/send?apikey=' + process.env.ELASTIC_EMAIL_API_KEY + msgInfo);
 
     console.log('payload.toString = ', payload.toString());
 
