@@ -1,3 +1,6 @@
+// Notes for improvements
+//    1) add Joi for validating inputs for routes
+//    2) split this file into multiple files (ex. routes, server, etc...)
 
 // Imports 
 const Hapi = require('hapi');
@@ -25,7 +28,12 @@ server.route({
   method: 'POST',
   path: '/sendEmail',
   handler: (req, res) => {
-    res('request body ' + JSON.stringify(req.payload));
+    // Body details for email 
+    const to = req.payload.to;
+    const subject = req.payload.subject;
+    const body = req.payload.body;
+
+    res('to = ' + to + ' subject = ' + subject + ' body = ' + body);
   }
 });
 
